@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Styles/navstyle.css">
+  <link rel="stylesheet" href="./Styles/display.css">
+</head>
+<body>
+    <div id="navcontainer"></div>
+    <div id="recipecontainer"></div>
+</body>
+</html>
+
+<script type="module">
+      import navbar from "./scripts/navbar.js";
+    import {RecipeAppend} from "./scripts/homepage.js";
+
+    let container=document.getElementById("navcontainer");
+   container.innerHTML=navbar();
+    let location=document.getElementById("recipecontainer")
+   let data =JSON.parse(localStorage.getItem("singleview"));
+
+   RecipeAppend(data,location);
+
+
+</script>

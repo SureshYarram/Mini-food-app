@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Styles/navstyle.css">
+    <link rel="stylesheet" href="./Styles/latest.css">
+    
+</head>
+<body>
+    <div id="navcontainer"></div>
+  <h2>---------Latest Recipes---------</h2>
+    <div id="latestcontainer">
+        
+    </div>
+</body>
+</html>
+
+<script type="module">
+
+    import navbar from "./scripts/navbar.js";
+
+    import {getDatahome,latestAppend} from "./scripts/homepage.js";
+
+
+   let container=document.getElementById("navcontainer");
+   container.innerHTML=navbar();
+
+   let url=`https://www.themealdb.com/api/json/v1/1/search.php?f=l`;
+   let latest=getDatahome(url);
+    let location =document.getElementById("latestcontainer");
+   latest.then((res)=>{
+       console.log(res);
+       latestAppend(res,location);
+   })
+// function latestAppend(data){
+//     document.getElementById("latestcontainer").innerHTML=null;
+//     data.forEach(({strMeal,strMealThumb})=>{
+//         let div1=document.createElement("div");
+//         let img=document.createElement("img");
+//         img.src=strMealThumb;
+//         let mealname=document.createElement("p");
+//         mealname.textContent=strMeal;
+//         div1.append(img,mealname);
+//         document.getElementById("latestcontainer").append(div1);
+
+//     })
+// }
+</script>

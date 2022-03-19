@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./Styles/navstyle.css">
+    <link rel="stylesheet" href="./Styles/foodhome.css">
+      
+   
+           
+</head>
+<body>
+      <div id="navcontainer"></div>
+     
+      <div id="debouncediv">
+          <div id="flexdiv"></div>
+      </div>
+      <h2>---------Recipes--------</h2>
+     
+      <div id="homecontainer"></div>
+</body>
+</html>
+
+
+<script type="module">
+
+    import navbar from "./scripts/navbar.js";
+
+    import {getData,append} from "./scripts/getData.js";
+    console.log(getData);
+   
+     import {getDatahome,latestAppend} from "./scripts/homepage.js";
+
+   let container=document.getElementById("navcontainer");
+   container.innerHTML=navbar();
+
+     let input=document.getElementById("Recipename");
+     input.addEventListener("input",Debounce);
+
+     let res=getData();
+   console.log(res);
+
+     function Debounce(){
+       let flex=  document.getElementById("debouncediv");
+             
+       
+         console.log("here");
+         setTimeout(()=>{
+            let Recipename=document.getElementById("Recipename").value;
+        let location=document.getElementById("flexdiv");
+        let response=getData(Recipename);
+        console.log(response);
+        
+         response.then((res)=>{
+       console.log(res);
+       if(Recipename.length<=1){
+           location.innerHTML=null;
+           location.style.overflow="hidden";
+           flex.style.display="none";
+
+        }
+       if(Recipename.length>1){
+      append(res,location);
+      flex.style.display="flex";
+       }
+  })
+         },1000)
+         
+     }
+       
+     let url=`https://www.themealdb.com/api/json/v1/1/search.php?f=c`;
+     let location=document.getElementById("homecontainer");
+     let respond=getDatahome(url);
+     respond.then((res)=>{
+         console.log(res);
+         latestAppend(res,location);
+     })
+  
+</script>
